@@ -65,11 +65,67 @@ all of the lines one color except for the part-time faculty line to make
 it stand out. I would also change the title to highlight the comparison
 between part-time hires and other positions.
 
-### Exercise 2
+### Fisheries
 
-Remove this text, and add your answer for Exercise 1 here. Add code
-chunks as needed. Don’t forget to label your code chunk. Do not use
-spaces in code chunk labels.
+To improve the first plot, I would change the scale on the y-axis or
+exclude a high outlier to make the trends at lower total harvest values
+more visible. I would also use a bar graph instead of a density
+distribution to provide a better comparison between the total harvests
+of different countries. For the other two plots, I would also opt for
+bar graphs instead of pie charts because they would be easier to read
+and I am personally more interested in comparisons between countries
+than contributions to the whole.
+
+``` r
+fisheries <- read_csv("data/fisheries.csv")
+```
+
+    ## Rows: 216 Columns: 4
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (1): country
+    ## dbl (3): capture, aquaculture, total
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+filtered_fisheries <- fisheries %>%
+  filter(country %in% c("China", "Indonesia", "India", "Vietnam", "United States", "Russia"))
+```
+
+``` r
+filtered_fisheries %>%
+  ggplot(aes(
+    x = country,
+    y = total
+  )) +
+  geom_col()
+```
+
+![](lab-06_files/figure-gfm/fisheries-total-plot-1.png)<!-- -->
+
+``` r
+filtered_fisheries %>%
+  ggplot(aes(
+    x = country,
+    y = capture
+  )) +
+  geom_col()
+```
+
+![](lab-06_files/figure-gfm/fisheries-capture-plot-1.png)<!-- -->
+
+``` r
+filtered_fisheries %>%
+  ggplot(aes(
+    x = country,
+    y = aquaculture
+  )) +
+  geom_col()
+```
+
+![](lab-06_files/figure-gfm/fisheries-aquaculture-plot-1.png)<!-- -->
 
 ### Exercise 3
 
