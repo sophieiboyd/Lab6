@@ -39,10 +39,13 @@ staff_long %>%
     group = faculty_type,
     color = faculty_type
   )) +
+  labs (x = "Year",
+        y = "Percentage of Hires",
+        title = "Percentage of Hires by Position (1975 to 2011)") +
   geom_line()
 ```
 
-
+If the objective of this plot was to show that the proportion of part-time faculty had gone up compared to other positions, I would make all of the lines one color except for the part-time faculty line to make it stand out. I would also change the title to highlight the comparison between part-time hires and other positions.
 
 ### Exercise 2
 
