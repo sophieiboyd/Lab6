@@ -1,7 +1,7 @@
 ---
 title: "Lab 06 - Ugly charts and Simpson's paradox"
-author: "Insert your name here"
-date: "Insert date here"
+author: "Sophie Boyd"
+date: "2-26-26"
 output: github_document
 ---
 
@@ -13,12 +13,36 @@ library(dsbox)
 library(mosaicData) 
 ```
 
-### Exercise 1
+### Instructional Staff Employment Trends
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+```{r read-staff-data}
+staff <- read_csv("data/instructional-staff.csv")
+```
+
+```{r wide-to-long}
+staff_long <- staff %>%
+  pivot_longer(cols = -faculty_type, names_to = "year") %>%
+  mutate(value = as.numeric(value))
+```
+
+```{r line-graph}
+staff_long %>%
+  ggplot(aes(x = year, y = value, color = faculty_type)) +
+  geom_line()
+```
+
+```{r line-graph-group}
+staff_long %>%
+  ggplot(aes(
+    x = year,
+    y = value,
+    group = faculty_type,
+    color = faculty_type
+  )) +
+  geom_line()
+```
+
+
 
 ### Exercise 2
 
