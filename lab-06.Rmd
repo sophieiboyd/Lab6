@@ -57,7 +57,7 @@ fisheries <- read_csv("data/fisheries.csv")
 
 ```{r filter-fisheries}
 filtered_fisheries <- fisheries %>%
-  filter(country %in% c("China", "Indonesia", "India", "Vietnam", "United States", "Russia"))
+  filter(country %in% c("China", "Indonesia", "India", "Vietnam", "United States", "Russia", "Japan", "Philippines", "Peru", "Bangladesh"))
 ```
 
 ```{r fisheries-total-plot}
@@ -66,7 +66,7 @@ filtered_fisheries %>%
     x = country,
     y = total
   )) +
-  geom_col()
+  geom_col() 
 ```
 
 ```{r fisheries-capture-plot}
@@ -87,15 +87,7 @@ filtered_fisheries %>%
   geom_col()
 ```
 
-```{r test-faceted-plot}
-fisheries %>%
-  ggplot(aes(
-    x = country,
-    y = total
-  )) + 
-  geom_col() +
-  facet_wrap(~ country, nrow = 216)
-```
+
 
 
 ### Exercise 3
