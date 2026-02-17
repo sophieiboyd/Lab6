@@ -87,6 +87,16 @@ filtered_fisheries %>%
   geom_col()
 ```
 
+```{r test-faceted-plot}
+fisheries %>%
+  ggplot(aes(
+    x = country,
+    y = total
+  )) + 
+  geom_col() +
+  facet_wrap(~ country, nrow = 216)
+```
+
 
 ### Exercise 3
 

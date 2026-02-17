@@ -127,6 +127,18 @@ filtered_fisheries %>%
 
 ![](lab-06_files/figure-gfm/fisheries-aquaculture-plot-1.png)<!-- -->
 
+``` r
+fisheries %>%
+  ggplot(aes(
+    x = country,
+    y = total
+  )) + 
+  geom_col() +
+  facet_wrap(~ country, nrow = 216)
+```
+
+![](lab-06_files/figure-gfm/test-faceted-plot-1.png)<!-- -->
+
 ### Exercise 3
 
 …
