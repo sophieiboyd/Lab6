@@ -61,27 +61,34 @@ filtered_fisheries <- fisheries %>%
 ```
 
 ```{r fisheries-total-plot}
+filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'China', 'Indonesia', 'India', 'Vietnam', 'United States', 'Russia', 'Japan', 'Philippines', 'Peru', 'Bangladesh')
+
 filtered_fisheries %>%
   ggplot(aes(
-    x = country,
+    x = country_ordered,
     y = total
   )) +
   geom_col() 
 ```
 
 ```{r fisheries-capture-plot}
+filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'China', 'Indonesia', 'India', 'United States', 'Russia', 'Peru', 'Japan', 'Vietnam', 'Philippines', 'Bangladesh')
+
 filtered_fisheries %>%
   ggplot(aes(
-    x = country,
+    x = country_ordered,
     y = capture
   )) +
   geom_col()
 ```
 
 ```{r fisheries-aquaculture-plot}
+filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'China', 'Indonesia', 'India', 'Vietnam', 'Philippines', 'Bangladesh', 'Japan', 'United States', 'Russia', 'Peru')
+
+
 filtered_fisheries %>%
   ggplot(aes(
-    x = country,
+    x = country_ordered,
     y = aquaculture
   )) +
   geom_col()
