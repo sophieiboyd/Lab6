@@ -49,8 +49,6 @@ If the objective of this plot was to show that the proportion of part-time facul
 
 ### Fisheries
 
-To improve the first plot, I would change the scale on the y-axis or exclude a high outlier to make the trends at lower total harvest values more visible. I would also use a bar graph instead of a density distribution to provide a better comparison between the total harvests of different countries. For the other two plots, I would also opt for bar graphs instead of pie charts because they would be easier to read and I am personally more interested in comparisons between countries than contributions to the whole. 
-
 ```{r read-fisheries-data}
 fisheries <- read_csv("data/fisheries.csv")
 ```
@@ -61,44 +59,70 @@ filtered_fisheries <- fisheries %>%
 ```
 
 ```{r fisheries-total-plot}
-filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'China', 'Indonesia', 'India', 'Vietnam', 'United States', 'Russia', 'Japan', 'Philippines', 'Peru', 'Bangladesh')
+filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'Bangladesh', 'Peru', 'Philippines', 'Japan', 'Russia', 'United States', 'Vietnam', 'India', 'Indonesia', 'China')
 
 filtered_fisheries %>%
   ggplot(aes(
     x = country_ordered,
-    y = total
+    y = total,
+    color = country_ordered,
+    fill = country_ordered
   )) +
-  geom_col() 
+  labs (x = 'Country',
+        y = 'Total Harvest',
+        color = 'Country',
+        fill = 'Country',
+        title = 'Total Harvest for Top 10 Countries') +
+  geom_col(show.legend = FALSE) +
+  coord_flip() 
 ```
 
 ```{r fisheries-capture-plot}
-filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'China', 'Indonesia', 'India', 'United States', 'Russia', 'Peru', 'Japan', 'Vietnam', 'Philippines', 'Bangladesh')
-
+filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'Bangladesh', 'Philippines', 'Vietnam', 'Japan', 'Peru', 'Russia', 'United States', 'India', 'Indonesia', 'China')
+                                                  
 filtered_fisheries %>%
   ggplot(aes(
     x = country_ordered,
-    y = capture
+    y = capture,
+    color = country_ordered,
+    fill = country_ordered
   )) +
-  geom_col()
+  labs (x = 'Country',
+        y = 'Capture',
+        color = 'Country',
+        fill = 'Country',
+        title = 'Amount Captured for Top 10 Countries') +
+  geom_col(show.legend = FALSE) +
+  coord_flip()
 ```
 
 ```{r fisheries-aquaculture-plot}
-filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'China', 'Indonesia', 'India', 'Vietnam', 'Philippines', 'Bangladesh', 'Japan', 'United States', 'Russia', 'Peru')
-
-
+filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'Peru', 'Russia', 'United States', 'Japan', 'Bangladesh', 'Philippines', 'Vietnam', 'India', 'Indonesia', 'China')
+                                                  
 filtered_fisheries %>%
   ggplot(aes(
     x = country_ordered,
-    y = aquaculture
+    y = aquaculture,
+    color = country_ordered,
+    fill = country_ordered
   )) +
-  geom_col()
+  labs (x = 'Country',
+        y = 'Aquaculture',
+        color = 'Country',
+        fill = 'Country',
+        title = 'Amount Farmed for Top 10 Countries') +
+  geom_col(show.legend = FALSE) +
+  coord_flip() 
 ```
 
+- I opted for bar graphs instead of the density distribution and donut charts to provide more clear comparisons of the harvest amounts between different countries. 
+
+- I limited my sample to the 10 countries with the highest total harvest amounts to simplify the plots (but I realize that this results in some information lost). 
+
+- I used coord_flip() to move the country names to the y-axis and make them more readable. 
+
+- I assigned a distinct color to each country to create more contrast and assist with comparisons. 
+
+- I removed the legend because it provided information about country that was redundant with the graph.
 
 
-
-### Exercise 3
-
-...
-
-Add exercise headings as needed.

@@ -67,15 +67,6 @@ between part-time hires and other positions.
 
 ### Fisheries
 
-To improve the first plot, I would change the scale on the y-axis or
-exclude a high outlier to make the trends at lower total harvest values
-more visible. I would also use a bar graph instead of a density
-distribution to provide a better comparison between the total harvests
-of different countries. For the other two plots, I would also opt for
-bar graphs instead of pie charts because they would be easier to read
-and I am personally more interested in comparisons between countries
-than contributions to the whole.
-
 ``` r
 fisheries <- read_csv("data/fisheries.csv")
 ```
@@ -91,56 +82,85 @@ fisheries <- read_csv("data/fisheries.csv")
 
 ``` r
 filtered_fisheries <- fisheries %>%
-  filter(country %in% c("China", "Indonesia", "India", "Vietnam", "United States", "Russia"))
+  filter(country %in% c("China", "Indonesia", "India", "Vietnam", "United States", "Russia", "Japan", "Philippines", "Peru", "Bangladesh"))
 ```
 
 ``` r
+filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'Bangladesh', 'Peru', 'Philippines', 'Japan', 'Russia', 'United States', 'Vietnam', 'India', 'Indonesia', 'China')
+
 filtered_fisheries %>%
   ggplot(aes(
-    x = country,
-    y = total
+    x = country_ordered,
+    y = total,
+    color = country_ordered,
+    fill = country_ordered
   )) +
-  geom_col()
+  labs (x = 'Country',
+        y = 'Total Harvest',
+        color = 'Country',
+        fill = 'Country',
+        title = 'Total Harvest for Top 10 Countries') +
+  geom_col(show.legend = FALSE) +
+  coord_flip() 
 ```
 
 ![](lab-06_files/figure-gfm/fisheries-total-plot-1.png)<!-- -->
 
 ``` r
+filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'Bangladesh', 'Philippines', 'Vietnam', 'Japan', 'Peru', 'Russia', 'United States', 'India', 'Indonesia', 'China')
+                                                  
 filtered_fisheries %>%
   ggplot(aes(
-    x = country,
-    y = capture
+    x = country_ordered,
+    y = capture,
+    color = country_ordered,
+    fill = country_ordered
   )) +
-  geom_col()
+  labs (x = 'Country',
+        y = 'Capture',
+        color = 'Country',
+        fill = 'Country',
+        title = 'Amount Captured for Top 10 Countries') +
+  geom_col(show.legend = FALSE) +
+  coord_flip()
 ```
 
 ![](lab-06_files/figure-gfm/fisheries-capture-plot-1.png)<!-- -->
 
 ``` r
+filtered_fisheries$country_ordered <- fct_relevel(filtered_fisheries$country, 'Peru', 'Russia', 'United States', 'Japan', 'Bangladesh', 'Philippines', 'Vietnam', 'India', 'Indonesia', 'China')
+                                                  
 filtered_fisheries %>%
   ggplot(aes(
-    x = country,
-    y = aquaculture
+    x = country_ordered,
+    y = aquaculture,
+    color = country_ordered,
+    fill = country_ordered
   )) +
-  geom_col()
+  labs (x = 'Country',
+        y = 'Aquaculture',
+        color = 'Country',
+        fill = 'Country',
+        title = 'Amount Farmed for Top 10 Countries') +
+  geom_col(show.legend = FALSE) +
+  coord_flip() 
 ```
 
 ![](lab-06_files/figure-gfm/fisheries-aquaculture-plot-1.png)<!-- -->
 
-``` r
-fisheries %>%
-  ggplot(aes(
-    x = country,
-    y = total
-  )) + 
-  geom_col() +
-  facet_wrap(~ country, nrow = 216)
-```
+- I opted for bar graphs instead of the density distribution and donut
+  charts to provide more clear comparisons of the harvest amounts
+  between different countries.
 
-![](lab-06_files/figure-gfm/test-faceted-plot-1.png)<!-- -->
+- I limited my sample to the 10 countries with the highest total harvest
+  amounts to simplify the plots (but I realize that this results in some
+  information lost).
 
-### Exercise 3
+- I used coord_flip() to move the country names to the y-axis and make
+  them more readable.
 
-…
+- I assigned a distinct color to each country to create more contrast
+  and assist with comparisons.
 
-Add exercise headings as needed.
+- I removed the legend because it provided information about country
+  that was redundant with the graph.
