@@ -81,6 +81,27 @@ fisheries <- read_csv("data/fisheries.csv")
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 ``` r
+fisheries %>%
+  summarize(country, total) %>%
+  arrange(desc(total))
+```
+
+    ## # A tibble: 216 × 2
+    ##    country          total
+    ##    <chr>            <dbl>
+    ##  1 China         81500000
+    ##  2 Indonesia     23184419
+    ##  3 India         10785334
+    ##  4 Vietnam        6420471
+    ##  5 United States  5375386
+    ##  6 Russia         4947253
+    ##  7 Japan          4343257
+    ##  8 Philippines    4228906
+    ##  9 Peru           3911989
+    ## 10 Bangladesh     3878324
+    ## # ℹ 206 more rows
+
+``` r
 filtered_fisheries <- fisheries %>%
   filter(country %in% c("China", "Indonesia", "India", "Vietnam", "United States", "Russia", "Japan", "Philippines", "Peru", "Bangladesh"))
 ```

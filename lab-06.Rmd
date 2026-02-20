@@ -53,6 +53,13 @@ If the objective of this plot was to show that the proportion of part-time facul
 fisheries <- read_csv("data/fisheries.csv")
 ```
 
+```{r total-top-ten, warning=FALSE}
+fisheries %>%
+  summarize(country, total) %>%
+  arrange(desc(total))
+```
+
+
 ```{r filter-fisheries}
 filtered_fisheries <- fisheries %>%
   filter(country %in% c("China", "Indonesia", "India", "Vietnam", "United States", "Russia", "Japan", "Philippines", "Peru", "Bangladesh"))
